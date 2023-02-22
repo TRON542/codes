@@ -1,0 +1,36 @@
+#include <iostream>
+using namespace std;
+int main(){
+   int max = 20;
+   double profit[] = {24,25,15}, weight[] = {18,15,20}; 
+   int n = sizeof(profit)/sizeof(profit[0]);
+   
+   double ratio[n];
+   for(int i=0;i<n;i++){
+   		ratio[i] = profit[i]/weight[i];
+   }
+   
+   double prof = 0;
+   while(true){
+   		double mx = 0;
+   		int pos;
+   		for(int i=0;i<n;i++){
+   			if(ratio[i] != 0 && ratio[i]>mx){
+   				pos = i;
+   				mx = ratio[i];	
+			}
+		}
+		if(weight[pos] < max){
+			prof = prof + profit[pos];
+			max = max - weight[pos];
+			ratio[pos] = 0;
+		}
+		else{
+			prof = prof + ratio[pos]*max;
+			cout<<"Profit is "<<prof;
+			return 0;
+		}
+   } 
+}
+
+
