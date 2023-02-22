@@ -1,0 +1,48 @@
+#include <iostream>
+using namespace std;
+int main(){
+   double profit[] = {100,19,27,25,15} , dedline[] = {2,1,2,1,3};   
+   int n = sizeof(profit)/sizeof(profit[0]);
+   
+   int max;
+   max = 3;
+   int chart[max];
+   for(int i=0;i<max;i++){
+   		chart[i] = 0;
+   }
+   
+   bool find = true;
+   int prof = 0;
+   while(find == true){
+   		int pos , mx = 0;
+   		for(int i=0;i<n;i++){
+   			if(profit[i] != 0 && profit[i]>mx){
+   				pos = i;
+   				mx = profit[i];	
+			}
+		}
+		for(int i=dedline[pos]-1;i>=0;i--){
+			if(chart[i] == 0){
+				chart[i] = pos+1;
+				prof = prof + profit[pos];
+				break;
+			}
+		}
+		profit[pos] = 0;
+		
+		int chk = 0;
+		for(int i=0;i<max;i++){
+			if(chart[i] == 0)
+				chk++;
+		}
+		if(chk == 0)
+			find = false;
+	
+   } 
+   cout<<"Chart is ";
+   for(int i=0;i<max;i++){
+   		cout<<"P"<<chart[i]<<" ";
+   }
+   
+}
+	
