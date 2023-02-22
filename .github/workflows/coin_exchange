@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+int main(){
+	int coin[] = {1,2,5};
+	int max = 9;
+	int max1 = max;
+	int size = 3;
+	cout<<"Coin are : "<<endl;
+	int sum = 0;
+	for (int i = size-1; i>=0 ; i--){
+		if(coin[i] <= max){
+			max = max - coin[i];
+			sum = sum + coin[i];
+			cout<<coin[i]<<endl;
+			i++;
+		}
+	}
+	if(sum == max1){
+		cout<<"Successful";
+	}
+	else{
+		cout<<"Unsuccessful";
+	}
+}
+
