@@ -1,0 +1,41 @@
+#include<iostream>
+using namespace std;
+
+void swap(int ar[],int a,int b){
+	int temp=ar[a];
+	ar[a]=ar[b];
+	ar[b] = temp;
+}
+
+int part(int ar[],int p,int q){
+	int x = ar[q];
+	int i = p-1;
+	for(int j=p;j<q;j++){
+		if(ar[j]<x){
+			i++;
+			swap(ar,i,j);
+		}	
+	}
+	swap(ar,i+1,q);
+	return(i+1);
+}
+
+void qsort(int ar[],int p,int q){
+	if(p<q){
+		int d;
+		d = part(ar,p,q);
+		qsort(ar,p,d-1);
+		qsort(ar,d+1,q);
+	}
+}
+
+int main(){
+	int arr[8]={2,7,5,4,6,8,3,1};
+	int n = sizeof(arr)/sizeof(arr[0]);
+	qsort(arr,0,n-1);
+	
+	for(int i=0;i<n;i++){
+		cout<<arr[i]<<" ";
+	}
+    	
+}
