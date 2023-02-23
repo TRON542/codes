@@ -1,0 +1,65 @@
+mat = [2,4,8;3,5,15;1,0,0;0,1,0];
+a = @(x,y)(mat(1,1)*x + mat(1,2)*y - mat(1,3));
+b = @(x,y)(mat(2,1)*x + mat(2,2)*y - mat(2,3));
+c = @(x,y)(mat(3,1)*x + mat(3,2)*y - mat(3,3));
+d = @(x,y)(mat(4,1)*x + mat(4,2)*y - mat(4,3));
+
+k = -1:1:15;
+p = (mat(1,3) - mat(1,1)*k)/mat(1,2);
+q = (mat(2,3) - mat(2,1)*k)/mat(2,2);
+r = 0*k;
+s = 0*k;
+plot(k,p , k,q , k,r , s,k) 
+int1 = zeros(2,2);
+int2 = zeros(2,1);
+sum = 0;
+for i=(4-1):-1:1
+    sum = sum + i;
+end
+disp(sum)
+intersections = zeros(sum,2);
+k = 1;
+for i=1:3
+    for j=i+1:4
+        int1(1,1) = mat(i,1);
+        int1(1,2) = mat(i,2);
+        int1(2,1) = mat(j,1);
+        int1(2,2) = mat(j,2);
+        int2(1,1) = mat(i,3);
+        int2(2,1) = mat(j,3);
+        e = int1\int2;
+        disp(e)
+        intersections(k,1) = e(1);
+        intersections(k,2) = e(2);
+        k = k +1;
+    end
+end
+disp("intersectoins are : ");
+disp(intersections);
+
+effInt = [];
+k = 1;
+check = 0;
+for i=1:6
+    if(a(intersections(i,1),intersections(i,2)) <= 0 && ...
+       b(intersections(i,1),intersections(i,2)) <= 0 && ...
+       c(intersections(i,1),intersections(i,2)) >= 0 && ...
+       d(intersections(i,1),intersections(i,2)) >= 0 )
+
+       effInt(k,:) = intersections(i,:);
+       k = k + 1;
+       check = 1;
+        
+    end
+
+end
+if(check == 0)
+    disp("No Solutions");    
+else    
+    disp("Effective Points ")
+    disp(effInt);
+end
+
+
+
+
