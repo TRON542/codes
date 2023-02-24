@@ -1,5 +1,6 @@
 mat = [1 1 -1 3 ;5 1 4 15];
 b = [15; 12];
+sel = 2;
 var = 4;
 maxxx = [1 2 0 0];
 int1 = zeros(2,2);
@@ -10,25 +11,27 @@ end
 intersections = zeros(sum,3);
 inter = zeros(sum,var);
 k = 1;
-t = 1;
-for i=1:var-1
+ncomb = nchoosek(var,sel);
+choose = nchoosek(1:var,sel);
+for qq=1:ncomb
+    i = choose(qq,1);
+    j = choose(qq,2);
     int1(1,1) = mat(1,i);
     int1(2,1) = mat(2,i);
-    for j=i+1:var
-        int1(1,2) = mat(1,j);
-        int1(2,2) = mat(2,j);
-        e = int1\b;
-        disp(int1)
-        intersections(k,1) = e(1);
-        intersections(k,2) = e(2);
-        inter(k,i) = e(1);
-        inter(k,j) = e(2);
-        if det(int1) == 0
-            intersections(k,3) = 1;
-        end
-        k = k +1;
+    int1(1,2) = mat(1,j);
+    int1(2,2) = mat(2,j);
+    e = int1\b;
+    disp(int1)
+    intersections(k,1) = e(1);
+    intersections(k,2) = e(2);
+    inter(k,i) = e(1);
+    inter(k,j) = e(2);
+    if det(int1) == 0
+        intersections(k,3) = 1;
     end
+    k = k +1;
 end
+
 
 
 for i=1:sum
@@ -61,6 +64,8 @@ for i=1:sum
             sum = sum + inter(i,j)*maxxx(j);
         end
         marr(1,k) = sum;
+    else
+        marr(1,k) = Inf;
     end
     k = k+1;
 end
