@@ -1,0 +1,50 @@
+#1
+ans1_a <- c(seq(1.3,4.9,0.3))
+print(ans1_a)
+
+ans1_b <- c(rep(1:4,5))
+print(ans1_b)
+
+ans1_c <-c(seq(14,0,-2))
+print(ans1_c)
+
+ans1_d <- c(rep(c(5,12,13,20),each=2))
+print(ans1_d)
+
+#2
+data <- iris
+data
+typeof(data)
+nrow(data)
+ncol(data)
+spec <- levels(data$Species)
+print(spec)
+
+#3
+mean_sd <- aggregate(cbind(data$Sepal.Length,data$Sepal.Width) ~ Species , data = data , FUN=function(x) c(mean=mean(x) , sd = sd(x)))
+print(mean_sd)
+data[1,1]
+iris.class <- data.frame()
+data
+for(i in 1:nrow(data)){
+  name <- data$Species[i]
+  if(data$Sepal.Length[i] < 5){
+    c_width = "short"
+  }else{
+    c_width = "long"
+  }
+  iris.class <- rbind(iris.class,c(data$Species[i],c_width))
+}
+iris.class
+
+data("mtcars")
+str(mtcars)
+names(mtcars)
+
+
+cyl.class <-data.frame()
+for(i in 1:nrow(mtcars)){
+  if(mtcars$cyl[i]<5){
+    cyl.class <- rbind(cyl.class,c)
+  }
+}

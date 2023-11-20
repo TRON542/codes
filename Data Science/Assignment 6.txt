@@ -1,0 +1,41 @@
+Q1 
+
+library(dplyr)
+Country <- c("USA", "China", "Brazil", "France", "South Africa", "Australia", "Japan", "Canada", "India", "Germany", "Mexico", "Egypt", "Sweden", "Argentina", "Nigeria", "South Korea", "Spain", "Brazil", "Kenya", "Thailand")
+Continent <- c("North America", "Asia", "South America", "Europe", "Africa", "Australia", "Asia", "North America", "Asia", "Europe", "North America", "Africa", "Europe", "South America", "Africa", "Asia", "Europe", "South America", "Africa", "Asia")
+Year <- c(2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001)
+LifeExp <- c(79.1, 76.9, 74.2, 82.3, 63.4, 83.2, 84.6, 81.7, 66.9, 80.9, 75.2, 71.3, 81.1, 75.6, 52.4, 77.6, 80.2, 70.3, 56.7, 69.9)
+Pop <- c(331000000, 1439323776, 209288278, 66987244, 55908865, 23815995, 127276000, 35158304, 1236680000, 81797673, 112336538, 80778000, 9219637, 40301927, 140003542, 48636068, 43075130, 182032604, 31787449, 62644404)
+gdpPerc <- c(21430, 14340, 1868, 2582, 294.1, 1386, 4890, 1842, 1873, 3740, 1043, 216.8, 527.9, 328.9, 95.32, 811.61, 1082, 621.89, 13.41, 116.7)
+data <- data.frame(Country , Continent , Year , LifeExp , Pop , gdpPerc )
+data
+min(data$gdpPerc)
+group_by(data,Continent) %>% summarize(n_distinct(Country))
+filter(data,Continent == "Europe") %>% summarise(min(gdpPerc))
+group_by(data,Continent) %>% summarise(mean(LifeExp))
+head(arrange(group_by(data,Country) %>% summarise(Sum = sum(gdpPerc)),desc(Sum)),n=5)
+filter(data,LifeExp>=80)$Country
+
+
+2.
+
+
+library(dplyr)
+MedID = 1:10
+Med_Name = c("Medicine1", "Medicine2", "Medicine3", "Medicine4", "Medicine5", "Medicine6", "Medicine7", "Medicine8", "Medicine9", "Medicine10")
+Company = c("Company A", "Company B", "Company C", "Company D", "Company E", "Company F", "Company G", "Company H", "Company I", "Company J")
+Manf_year = c(2022, 2021, 2022, 2020, 2021, 2022, 2020, 2021, 2020, 2022)
+Exp_date = c("2024-12-31", "2024-10-15", "2025-03-20", "2024-06-30", "2025-01-05", "2025-04-15", "2024-11-30", "2024-09-20", "2024-07-15", "2024-12-10")
+Quantity_in_stock = c(100, 200, 150, 250, 180, 300, 120, 220, 170, 190)
+Sales = c(50, 80, 60, 90, 70, 110, 40, 75, 55, 65)    
+med <- data.frame(MedID,Med_Name,Company,Manf_year,Exp_date,Quantity_in_stock,Sales)
+head(med,n=4)
+tail(med,n=4)
+med <- mutate(med,DateInInt = as.integer(gsub('-','',Exp_date)))
+cor(med$Quantity_in_stock,med$DateInInt)
+barplot(med$Sales,med$Manf_year)
+unique(med$Med_Name)
+mean(med$Quantity_in_stock)
+line <- lm(med$Manf_year ~ med$DateInInt,data=med)
+plot(med$Manf_year,med$DateInInt)
+abline(line,col="red")

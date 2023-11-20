@@ -1,0 +1,58 @@
+#Assignment 7
+Sub1 <- c(85, 72, 93, 78, 64, 90, 81, 77, 89, 73, 95, 68, 88, 76, 82, 70, 91, 74, 87, 79)
+Sub2 <- c(71, 87, 64, 92, 76, 80, 89, 67, 74, 83, 95, 78, 86, 72, 90, 81, 68, 84, 75, 69)
+Sub3 <- c(88, 75, 70, 92, 79, 83, 71, 90, 76, 68, 94, 87, 72, 85, 78, 69, 91, 74, 80, 73)
+marks <- matrix(c(Sub1,Sub2,Sub3),3,20)
+marks
+mean(mtcars$mpg)
+library(data.table)
+library(readxl)
+dta <- read_xlsx('C:/Users/SUNIL KUMAR/Downloads/getdata_data_DATA.gov_NGAP.xlsx')
+
+dta1 <- dta[18:23,7:15]
+colnames(dta1) <- c(paste(as.character(7:16),"k"))
+colnames(dta1)
+dta1$`12 k`
+sum(dta1$`7 k`*dta1$`12 k`,na.rm=T)
+
+dtaa <- read.csv('C:/Users/SUNIL KUMAR/Downloads/getdata_data_ss06pid.csv')
+fread(dtaa)
+url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv"
+DT <- fread(url)
+data
+pwgtp15
+mean(DT$pwgtp15,by=DT$SEX)
+
+DT[,mean(pwgtp15),by=SEX]
+mean(DT[DT$SEX==1,]$pwgtp15); mean(DT[DT$SEX==2,]$pwgtp15)
+
+url2 <-"https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Frestaurants.xml"
+dd <- fread(url2)
+dd
+c(4,TRUE)
+
+
+
+
+library(dplyr)
+library(tibble)
+mtcars_tbl <- as_data_frame(tibble::rownames_to_column(mtcars, "cars"))
+mtcars
+head(mtcars)
+filter(mtcars,cyl == 6)
+filter(mtcars_tbl, cyl == 4 | cyl == 6, gear == 5)
+print(arrange(mtcars_tbl, desc(mpg), disp))   #Descending
+colnames(mtcars)
+selected <- select(mtcars, mpg:hp, gear)
+ordered <- arrange(selected, cyl, desc(mpg))
+ordered
+by_cyl <- group_by(ordered, gear)
+print(by_cyl,n=32)
+print(group_by(
+  arrange(
+    select(
+      mtcars, mpg:hp
+    ), mpg, desc(disp)
+  ), cyl
+),n = 20)
+

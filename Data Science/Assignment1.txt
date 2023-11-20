@@ -1,0 +1,40 @@
+#1
+A <- 23.4
+B <- 45
+C <- 678
+
+#2
+print(c(A,B,C))
+cat(ls())
+
+#3
+rm("C")
+cat(ls())
+
+#4
+#I am learning R
+
+#5
+firstname = "FirstName"
+lastname = "LastName"
+
+#7
+C <- 678
+print(A+B+C)
+print(A-B-C)
+print(A*B*C)
+print(A/B/C)
+
+#8
+print(exp(0))
+print(log(2))
+print(log10(2))
+print(log2(2))
+print(sin(pi/2))
+print(sqrt(2))
+
+#9
+print(23 + ((4.5 * 2.3) / 10))
+print((456 / 12) - log(90))
+print(exp(5) + (12 / (5 ^ 6)))
+print(sqrt(45)*(12/3))

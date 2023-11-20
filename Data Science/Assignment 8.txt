@@ -1,0 +1,81 @@
+library(ggplot2)
+library(dplyr)
+
+#Q1
+# Load the dataset
+url <- "https://raw.githubusercontent.com/biocorecrg/CRG_RIntroduction/master/ex12_normalized_intensities.csv"
+project1 <- read.csv(url)
+
+# 2. Add a column "expr_limits" based on expression values
+project1 <- project1 %>%
+  mutate(expr_limits = case_when(
+    sampleB > 13 & sampleH > 13 ~ "high",
+    sampleB < 6 & sampleH < 6 ~ "low",
+    TRUE ~ "normal"
+  ))
+
+# 1. Create a scatter plot for sampleB vs sampleH
+p <- ggplot(project1, aes(x = sampleB, y = sampleH)) +
+  geom_point(aes(color = expr_limits)) +
+  labs(x = "Sample B", y = "Sample H") +
+  ggtitle("Gene Expression: SampleB vs SampleH")
+
+
+# 3. Scatter plot with points colored by "expr_limits"
+p <- p +
+  geom_point(aes(color = expr_limits))
+
+# 4. Boxplot of the expression of all samples
+p_boxplot <- ggplot(project1, aes(x = "All Samples", y = sampleB)) +
+  geom_boxplot() +
+  labs(x = "Sample", y = "Expression") +
+  ggtitle("Expression of All Samples")
+
+# 5. Modify the boxplot for 3 "sub-boxplots" per sample
+p_boxplot_sub <- ggplot(project1, aes(x = "All Samples", y = sampleB)) +
+  geom_boxplot(aes(fill = expr_limits)) +
+  labs(x = "Sample", y = "Expression") +
+  ggtitle("Expression of All Samples (Low/Normal/High)")
+
+# 6. Bar plot of count of low/normal/high genes
+count_data <- project1 %>% count(expr_limits)
+
+p_barplot <- ggplot(count_data, aes(x = expr_limits, y = n)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  labs(x = "Expression Level", y = "Count") +
+  ggtitle("Count of Low/Normal/High Genes")
+
+# Display the plots
+print(p)
+print(p_boxplot)
+print(p_boxplot_sub)
+print(p_barplot)
+
+
+
+#Q2
+zomato_data <- read.csv("C:/Users/Hardik Garg/Downloads/archive/zomato.csv")
+
+#1. Find the highest rating (use rate attribute) for the type of service using listed In(Type) information through bar graph. 
+highest_ratings <- zomato_data %>% group_by(rest_type) %>%summarise(Max_Rating = max(rate, na.rm = TRUE))
+highest_ratings
+
+ggplot(highest_ratings, aes(x = rest_type, y = Max_Rating)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Type of Service", y = "Max Rating") +
+  ggtitle("Highest Ratings by Type")
+
+#2
+# Find the types of restaurants with the highest votes
+top_restaurant_types <- zomato_data %>%
+  group_by(rest_type) %>%
+  summarise(Total_Votes = sum(votes)) %>%
+  arrange(desc(Total_Votes)) %>%
+  head(10)  
+
+# Create a horizontal bar chart
+ggplot(top_restaurant_types, aes(x = reorder(rest_type, -Total_Votes), y = Total_Votes)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Restaurant Type", y = "Total Votes") +
+  ggtitle("Top Restaurant Types by Votes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))

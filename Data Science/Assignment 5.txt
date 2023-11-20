@@ -1,0 +1,28 @@
+library(dplyr)
+setwd("C:\\Users\\SUNIL KUMAR\\Downloads")
+daily_show_data <- read.csv("daily_show_guests.csv")
+daily_show_data
+#1
+head(daily_show_data,n=10)
+
+#2
+colnames(daily_show_data)
+daily_show_data <- rename(daily_show_data,year = YEAR,job = GoogleKnowlege_Occupation,date = Show,category = Group,guest_name = Raw_Guest_List)
+colnames(daily_show_data)
+daily_show_data
+
+#3
+summarise(daily_show_data,year,date,guest_name)
+
+#4
+select(daily_show_data,job:guest_name)
+
+#5
+filter(daily_show_data,job=="actor")
+
+#6
+arrange(daily_show_data,date)
+
+#7
+mutate(daily_show_data,Experience=2020-year)
+

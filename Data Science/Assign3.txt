@@ -1,0 +1,46 @@
+mt = matrix(c(5,6,2,8,7,3,1,6,9),nrow=3,ncol=3,byrow=TRUE)
+print(apply(mt,1,sum))
+
+#1
+A = c(12, 13, 14, 15, 16)
+
+#2
+print(sum(A))
+
+#3
+print(prod(A))
+
+#4
+print(min(A))
+print(max(A))
+
+#5
+print(range(A))
+
+#6
+print(mean(A))
+print(var(A))
+print(sd(A))
+print(median(A))
+
+#7
+B = sort(A)
+C = sort(A,decreasing = TRUE)
+print(B)
+print(C)
+
+#8
+mat = matrix(1:12,3,4,TRUE)
+print(mat)
+
+#9
+RW = matrix(c(A,B,C),3,length(A),TRUE)
+CW = matrix(c(A,B,C),3,length(A))
+print(CW)
+print(RW)
+
+#10
+print(RW[2:3,1:length(A)])
+
+#11
+print(CW[1:3,1:2])
